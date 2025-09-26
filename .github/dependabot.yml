@@ -8,9 +8,6 @@ updates:
       time: '04:00'
       timezone: 'Europe/Moscow'
     open-pull-requests-limit: 10
-    labels:
-      - dependencies
-      - automated-pr
     commit-message:
       prefix: 'chore'
       include: 'scope'
@@ -32,9 +29,6 @@ updates:
       day: 'monday'
       time: '04:00'
       timezone: 'Europe/Moscow'
-    labels:
-      - dependencies
-      - automated-pr
     commit-message:
       prefix: 'chore'
       include: 'scope'

@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 
 import App from './App'
+import { RootStoreProvider } from './stores/root-store-provider'
 
 // Набор компонентных тестов, проверяющих работу счётчика в демо-приложении.
 
@@ -12,7 +13,9 @@ describe('Приложение', () => {
     const user = userEvent.setup()
     render(
       <HelmetProvider>
-        <App />
+        <RootStoreProvider>
+          <App />
+        </RootStoreProvider>
       </HelmetProvider>,
     )
 

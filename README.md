@@ -9,6 +9,7 @@ TypeScript-проект на React 19 и Vite с заранее настроен
 - Жёсткие линтеры и автоформатирование под единый стиль кода.
 - Тесты на всех уровнях: компонентные (Vitest) и сквозные (Playwright).
 - Husky + lint-staged обеспечивают запуск проверок на этапе git-хуков.
+- Состояние приложения на MobX с готовым `RootStoreProvider` и типизированными сторами.
 
 ## Требования
 
@@ -52,6 +53,52 @@ createRoot(root).render(
   </StrictMode>,
 )
 ```
+
+## Состояние приложения на MobX
+
+- В `src/stores/` лежит базовая инфраструктура: `CounterStore`, `RootStore` и `RootStoreProvider`.
+- Стор создаётся всего один раз и пробрасывается через контекст, доступ к нему осуществляется хуком `useRootStore`, а к конкретному стору — `useCounterStore`.
+- В компонентном тесте и в `main.tsx` приложение уже обёрнуто в провайдер, поэтому готово к расширению новыми сторами.
+
+Пример создания собственного стора:
+
+```ts
+import { makeAutoObservable } from 'mobx'
+
+export class TodosStore {
+  todos: string[] = []
+
+  constructor() {
+    makeAutoObservable(this, undefined, { autoBind: true })
+  }
+
+  add(todo: string) {
+    this.todos.push(todo)
+  }
+}
+```
+
+Чтобы подключить стор к корневому, зарегистрируйте его в `RootStore` и создайте хук-помощник по аналогии с `useCounterStore`. В компоненте используйте `observer` и новый хук:
+
+```tsx
+import { observer } from 'mobx-react-lite'
+
+import { useRootStore } from '../stores/root-store-context'
+
+export const TodosList = observer(() => {
+  const { todosStore } = useRootStore()
+
+  return (
+    <ul>
+      {todosStore.todos.map((todo) => (
+        <li key={todo}>{todo}</li>
+      ))}
+    </ul>
+  )
+})
+```
+
+Такой подход оставляет состояние централизованным и избавляет от ручной настройки MobX в каждом компоненте.
 
 ## Доступные команды
 

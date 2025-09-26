@@ -1,17 +1,18 @@
 import { Helmet } from '@dr.pogodin/react-helmet'
-import { useState } from 'react'
+import { observer } from 'mobx-react-lite'
 
-import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 
 import './App.css'
+import reactLogo from './assets/react.svg'
+import { useCounterStore } from './stores/root-store-context'
 
 /**
  * Главный компонент приложения с простым счётчиком и ссылками на документацию.
  */
-function App() {
-  // Состояние хранит текущее значение счётчика, отображаемое на кнопке.
-  const [count, setCount] = useState(0)
+const App = observer(function App() {
+  // Храним состояние счётчика в MobX-сторе, чтобы оно было доступно всему приложению.
+  const counterStore = useCounterStore()
 
   return (
     <>
@@ -34,10 +35,10 @@ function App() {
       <div className="card">
         <button
           onClick={() => {
-            setCount((value) => value + 1)
+            counterStore.increment()
           }}
         >
-          Значение счётчика: {count}
+          Значение счётчика: {counterStore.count}
         </button>
         <p>
           Измените файл <code>src/App.tsx</code> и сохраните его, чтобы увидеть горячую перезагрузку
@@ -48,6 +49,6 @@ function App() {
       </p>
     </>
   )
-}
+})
 
 export default App

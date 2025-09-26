@@ -40,6 +40,8 @@
   },
   "dependencies": {
     "@dr.pogodin/react-helmet": "3.0.4",
+    "mobx": "^6.15.0",
+    "mobx-react-lite": "^4.1.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.3"

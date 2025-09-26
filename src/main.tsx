@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client'
 
 import App from './App.tsx'
 import './index.css'
+import { RootStoreProvider } from './stores/root-store-provider'
 
 /**
  * Находит корневой DOM-узел и монтирует в него React-приложение.
@@ -18,7 +19,9 @@ if (!rootElement) {
 createRoot(rootElement).render(
   <StrictMode>
     <HelmetProvider>
-      <App />
+      <RootStoreProvider>
+        <App />
+      </RootStoreProvider>
     </HelmetProvider>
   </StrictMode>,
 )

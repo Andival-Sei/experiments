@@ -10,8 +10,8 @@
     "format:check": "prettier --cache --check .",
     "lint": "pnpm lint:ts && pnpm lint:styles",
     "lint:staged": "lint-staged",
-    "lint:styles": "stylelint \"src/**/*.{css,scss}\"",
-    "lint:styles:fix": "stylelint \"src/**/*.{css,scss}\" --fix",
+    "lint:styles": "stylelint \"src/**/*.scss\"",
+    "lint:styles:fix": "stylelint \"src/**/*.scss\" --fix",
     "lint:ts": "eslint . --max-warnings=0",
     "lint:ts:fix": "eslint . --fix",
     "prepare": "husky",
@@ -31,7 +31,7 @@
     "*.{ts,tsx,js,jsx}": [
       "pnpm exec eslint --max-warnings=0 --fix"
     ],
-    "*.{css,scss}": [
+    "*.scss": [
       "pnpm exec stylelint --fix"
     ],
     "*": [

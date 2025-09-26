@@ -7,6 +7,7 @@ TypeScript-проект на React 19 и Vite с заранее настроен
 - Управление `<head>` через `@dr.pogodin/react-helmet`, совместимый с React 19.
 - Быстрая разработка на Vite с поддержкой React Refresh.
 - Жёсткие линтеры и автоформатирование под единый стиль кода.
+- Стили на чистом SCSS: глобальные и компонентные файлы без `.css`.
 - Тесты на всех уровнях: компонентные (Vitest) и сквозные (Playwright).
 - Husky + lint-staged обеспечивают запуск проверок на этапе git-хуков.
 - Состояние приложения на MobX с готовым `RootStoreProvider` и типизированными сторами.
@@ -100,6 +101,12 @@ export const TodosList = observer(() => {
 
 Такой подход оставляет состояние централизованным и избавляет от ручной настройки MobX в каждом компоненте.
 
+## Стилизация на SCSS
+
+- Глобальные стили подключаются из `src/index.scss`, а компонентные — из `src/App.scss`. При необходимости создавайте дополнительные частичные файлы и импортируйте их как модули.
+- Stylelint и lint-staged настроены на работу только с `.scss`, поэтому новые CSS-файлы не понадобятся.
+- Используйте полный синтаксис SCSS: вложенность, переменные и миксины поддерживаются благодаря плагину `postcss-scss` и установленному `sass`.
+
 ## Доступные команды
 
 ```bash
@@ -139,7 +146,7 @@ pnpm lint:staged       # Ручной запуск lint-staged (как в pre-co
 
 - ESLint (файл `eslint.config.js`) объединяет правила TypeScript ESLint, React, JSX-a11y, Testing Library и Stylistic.
 - Stylelint (файл `stylelint.config.cjs`) опирается на `stylelint-config-standard-scss` и `stylelint-config-clean-order`.
-- Prettier настроен с плагинами для сортировки импортов и `package.json`, а `stylelint-prettier` синхронизирует форматирование CSS.
+- Prettier настроен с плагинами для сортировки импортов и `package.json`, а `stylelint-prettier` синхронизирует форматирование SCSS.
 
   Для комплексной проверки качества кода выполните:
 

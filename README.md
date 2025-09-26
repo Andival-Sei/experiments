@@ -133,6 +133,17 @@ pnpm test:all          # Последовательно запустить Vites
 pnpm lint:staged       # Ручной запуск lint-staged (как в pre-commit хуке)
 ```
 
+## CI в GitHub Actions
+
+- Workflow `CI` запускается на пул-реквесты и пуши в `main`.
+- Джобы выполняются параллельно и проверяют ключевые аспекты качества:
+  - **Lint & Typecheck** — запускает `pnpm lint` и `pnpm typecheck`.
+  - **Build** — собирает проект командой `pnpm build`.
+  - **Unit tests** — прогоняет модульные тесты Vitest (`pnpm test`).
+  - **Playwright** — устанавливает браузеры (`pnpm exec playwright install --with-deps`) и выполняет e2e-тесты (`pnpm test:e2e`).
+- Все задания работают на Node.js 20 и pnpm 9, кэш пакетов настраивается через `actions/setup-node`.
+- Для повторного запуска конкретной проверки воспользуйтесь кнопкой **Re-run jobs** в интерфейсе GitHub Actions.
+
 ## Тестовый стек
 
 - **Vitest** + Testing Library (`src/App.test.tsx`) покрывают компонентный уровень, в тестах задействован `HelmetProvider`.

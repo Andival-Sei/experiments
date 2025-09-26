@@ -1,16 +1,16 @@
-import { defineConfig, globalIgnores } from 'eslint/config'
 import js from '@eslint/js'
-import globals from 'globals'
-import tseslint from 'typescript-eslint'
-import react from 'eslint-plugin-react'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import jsxA11y from 'eslint-plugin-jsx-a11y'
-import importX from 'eslint-plugin-import-x'
-import testingLibrary from 'eslint-plugin-testing-library'
 import stylistic from '@stylistic/eslint-plugin'
 import vitest from '@vitest/eslint-plugin'
 import prettier from 'eslint-config-prettier'
+import importX from 'eslint-plugin-import-x'
+import jsxA11y from 'eslint-plugin-jsx-a11y'
+import react from 'eslint-plugin-react'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import testingLibrary from 'eslint-plugin-testing-library'
+import { defineConfig, globalIgnores } from 'eslint/config'
+import globals from 'globals'
+import tseslint from 'typescript-eslint'
 
 const isCI = process.env.CI === 'true'
 const importXTypescript = importX.flatConfigs?.typescript ?? importX.configs['flat/typescript']
@@ -18,13 +18,7 @@ const testingLibraryReact = testingLibrary.configs['flat/react']
 const jsxA11yRecommendedRules = jsxA11y.configs.recommended?.rules ?? {}
 
 export default defineConfig([
-  globalIgnores([
-    'dist',
-    'coverage',
-    'playwright-report',
-    'node_modules',
-    '.pnpm-store',
-  ]),
+  globalIgnores(['dist', 'coverage', 'playwright-report', 'node_modules', '.pnpm-store']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -42,7 +36,7 @@ export default defineConfig([
     languageOptions: {
       parserOptions: {
         projectService: true,
-        project: ['./tsconfig.eslint.json'],
+        project: ['./tsconfig.eslint.json', './tsconfig.playwright.json'],
         tsconfigRootDir: import.meta.dirname,
         ecmaVersion: 2022,
         sourceType: 'module',
@@ -65,7 +59,7 @@ export default defineConfig([
       },
       'import-x': {
         typescript: {
-          configPaths: ['./tsconfig.eslint.json'],
+          configPaths: ['./tsconfig.eslint.json', './tsconfig.playwright.json'],
         },
       },
     },
@@ -159,6 +153,15 @@ export default defineConfig([
     },
     rules: {
       'import-x/no-unused-modules': 'off',
+    },
+  },
+  {
+    files: ['tests/e2e/**/*.{ts,tsx}'],
+    rules: {
+      'testing-library/prefer-screen-queries': 'off',
+      'testing-library/prefer-presence-queries': 'off',
+      'testing-library/no-await-sync-query': 'off',
+      'testing-library/no-wait-for-side-effects': 'off',
     },
   },
 ])

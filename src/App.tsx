@@ -5,17 +5,21 @@ import viteLogo from '/vite.svg'
 
 import './App.css'
 
+/**
+ * Главный компонент приложения с простым счётчиком и ссылками на документацию.
+ */
 function App() {
+  // Состояние хранит текущее значение счётчика, отображаемое на кнопке.
   const [count, setCount] = useState(0)
 
   return (
     <>
       <div>
         <a href="https://vite.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
+          <img src={viteLogo} className="logo" alt="Логотип Vite" />
         </a>
         <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
+          <img src={reactLogo} className="logo react" alt="Логотип React" />
         </a>
       </div>
       <h1>Vite + React</h1>
@@ -25,13 +29,15 @@ function App() {
             setCount((value) => value + 1)
           }}
         >
-          count is {count}
+          Значение счётчика: {count}
         </button>
         <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+          Измените файл <code>src/App.tsx</code> и сохраните его, чтобы увидеть горячую перезагрузку
         </p>
       </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
+      <p className="read-the-docs">
+        Нажмите на логотипы Vite и React, чтобы открыть их документацию
+      </p>
     </>
   )
 }

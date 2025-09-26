@@ -4,10 +4,14 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
+/**
+ * Находит корневой DOM-узел и монтирует в него React-приложение.
+ * Бросает исключение с понятным описанием, если контейнер не найден.
+ */
 const rootElement = document.getElementById('root')
 
 if (!rootElement) {
-  throw new Error('Root element with id "root" was not found')
+  throw new Error('Не удалось найти элемент с идентификатором "root" для монтирования приложения')
 }
 
 createRoot(rootElement).render(

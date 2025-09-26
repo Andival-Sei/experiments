@@ -1,3 +1,4 @@
+import { HelmetProvider } from '@dr.pogodin/react-helmet'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
@@ -16,6 +17,8 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   <StrictMode>
-    <App />
+    <HelmetProvider>
+      <App />
+    </HelmetProvider>
   </StrictMode>,
 )

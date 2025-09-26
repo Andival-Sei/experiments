@@ -8,6 +8,7 @@ const COUNTER_BUTTON_LABEL = /значение счётчика: \d+/i
  */
 const navigateToHome = async (page: Page) => {
   await page.goto('/')
+  await expect(page).toHaveTitle('Vite + React — демо счётчика')
   await expect(page.getByRole('heading', { name: /vite \+ react/i })).toBeVisible()
 }
 

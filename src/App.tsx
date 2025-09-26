@@ -1,3 +1,4 @@
+import { Helmet } from '@dr.pogodin/react-helmet'
 import { useState } from 'react'
 
 import reactLogo from './assets/react.svg'
@@ -14,6 +15,13 @@ function App() {
 
   return (
     <>
+      <Helmet prioritizeSeoTags>
+        <title>Vite + React — демо счётчика</title>
+        <meta
+          name="description"
+          content="Пример приложения на React 19 с Vite, демонстрирующий интеграцию счётчика и react-helmet."
+        />
+      </Helmet>
       <div>
         <a href="https://vite.dev" target="_blank" rel="noreferrer">
           <img src={viteLogo} className="logo" alt="Логотип Vite" />

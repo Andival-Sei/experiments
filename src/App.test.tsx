@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react'
+import { HelmetProvider } from '@dr.pogodin/react-helmet'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 
@@ -9,7 +10,15 @@ import App from './App'
 describe('Приложение', () => {
   it('увеличивает счётчик при нажатии на кнопку', async () => {
     const user = userEvent.setup()
-    render(<App />)
+    render(
+      <HelmetProvider>
+        <App />
+      </HelmetProvider>,
+    )
+
+    await waitFor(() => {
+      expect(document.title).toBe('Vite + React — демо счётчика')
+    })
 
     const button = screen.getByRole('button', { name: /значение счётчика: 0/i })
     expect(button).toHaveTextContent(/значение счётчика: 0/i)

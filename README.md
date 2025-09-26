@@ -1,44 +1,57 @@
-# React + TypeScript + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-`````js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    ````markdown
-    # Experiments Frontend Stack
-
-    A strongly typed React 19 + Vite project pre-configured with opinionated tooling for linting, formatting, unit tests (Vitest) and end-to-end tests (Playwright). Git hooks are powered by Husky and lint-staged to keep code quality checks automated.
-
-    ## Prerequisites
 # Стек Experiments Frontend
 
-TypeScript-проект на React 19 и Vite c заранее настроенными инструментами: линтерами (ESLint, Stylelint), форматированием (Prettier), модульными тестами (Vitest) и e2e-тестами (Playwright). Git-хуки на базе Husky и lint-staged гарантируют, что проверки запускаются автоматически при коммитах и пушах.
+TypeScript-проект на React 19 и Vite с заранее настроенными инструментами: линтерами (ESLint, Stylelint), форматированием (Prettier), модульными тестами (Vitest) и e2e-тестами (Playwright). Git-хуки на базе Husky и lint-staged автоматизируют проверки перед коммитами и пушами.
+
+## Ключевые возможности
+
+- Управление `<head>` через `@dr.pogodin/react-helmet`, совместимый с React 19.
+- Быстрая разработка на Vite с поддержкой React Refresh.
+- Жёсткие линтеры и автоформатирование под единый стиль кода.
+- Тесты на всех уровнях: компонентные (Vitest) и сквозные (Playwright).
+- Husky + lint-staged обеспечивают запуск проверок на этапе git-хуков.
 
 ## Требования
 
-- Node.js версии 20 или выше
-- pnpm версии 9 или выше
+- Node.js версии 20 или выше.
+- pnpm версии 9 или выше.
 
-Установка зависимостей:
+  Установка зависимостей:
 
-```bash
-pnpm install
-`````
+  ```bash
+  pnpm install
+  ```
+
+## Управление мета-тегами
+
+Приложение использует `@dr.pogodin/react-helmet` вместо устаревшего `react-helmet-async`. Корневой компонент обёрнут в `HelmetProvider`, а конкретные страницы задают теги через `Helmet`:
+
+```tsx
+import { Helmet } from '@dr.pogodin/react-helmet'
+
+export function ExamplePage() {
+  return (
+    <>
+      <Helmet prioritizeSeoTags>
+        <title>Заголовок страницы</title>
+        <meta name="description" content="Краткое описание для поисковиков" />
+      </Helmet>
+      {/* ...остальная разметка... */}
+    </>
+  )
+}
+```
+
+Если создаёте новую точку входа, не забудьте добавить `HelmetProvider` вокруг приложения:
+
+```tsx
+createRoot(root).render(
+  <StrictMode>
+    <HelmetProvider>
+      <App />
+    </HelmetProvider>
+  </StrictMode>,
+)
+```
 
 ## Доступные команды
 
@@ -68,12 +81,12 @@ pnpm lint:staged       # Ручной запуск lint-staged (как в pre-co
 
 ## Тестовый стек
 
-- **Vitest** + Testing Library (`src/App.test.tsx`) покрывают компонентный уровень.
-- **Playwright** (`tests/e2e/app.spec.ts`) проверяет сценарии сквозного взаимодействия.
+- **Vitest** + Testing Library (`src/App.test.tsx`) покрывают компонентный уровень, в тестах задействован `HelmetProvider`.
+- **Playwright** (`tests/e2e/app.spec.ts`) проверяет пользовательские сценарии и валидирует заголовок страницы.
   - Конфигурация — `playwright.config.ts`. Здесь же указаны параметры dev-сервера, съёмка трасс и скриншотов.
   - Отдельный TypeScript-проект для e2e описан в `tsconfig.playwright.json`.
 
-Папки `playwright-report`, `blob-report` и `test-results` добавлены в `.gitignore`, поэтому артефакты прогонов не попадут в репозиторий.
+  Папки `playwright-report`, `blob-report` и `test-results` добавлены в `.gitignore`, поэтому артефакты прогонов не попадут в репозиторий.
 
 ## Линтинг и форматирование
 
@@ -81,22 +94,22 @@ pnpm lint:staged       # Ручной запуск lint-staged (как в pre-co
 - Stylelint (файл `stylelint.config.cjs`) опирается на `stylelint-config-standard-scss` и `stylelint-config-clean-order`.
 - Prettier настроен с плагинами для сортировки импортов и `package.json`, а `stylelint-prettier` синхронизирует форматирование CSS.
 
-Для комплексной проверки качества кода выполните:
+  Для комплексной проверки качества кода выполните:
 
-```bash
-pnpm lint && pnpm test:all
-```
+  ```bash
+  pnpm lint && pnpm test:all
+  ```
 
 ## Git-хуки
 
 - `pre-commit` запускает `pnpm lint:staged`, применяя ESLint, Stylelint и Prettier только к индексированным файлам.
-- `pre-push` выполняет `pnpm test:all` и блокирует отправку, если падают модульные или функциональные тесты.
+- `pre-push` выполняет `pnpm test:all` и блокирует отправку, если падают модульные или e2e-тесты.
 
-Хуки ставятся автоматически благодаря скрипту `prepare`. При необходимости переустановить их вручную используйте:
+  Хуки ставятся автоматически благодаря скрипту `prepare`. При необходимости переустановить их вручную используйте:
 
-```bash
-pnpm exec husky install
-```
+  ```bash
+  pnpm exec husky install
+  ```
 
 ## Структура проекта
 
@@ -111,6 +124,6 @@ tsconfig.*.json      — независимые TS-проекты для при�
 ## IDE и советы
 
 - Включите автоформатирование по сохранению, чтобы Prettier и Stylelint поддерживали единый стиль.
-- Используйте типы `@playwright/test` и `vitest/globals`, уже подключённые через `tsconfig`, чтобы получать автодополнение на русском описании сценариев.
+- Используйте типы `@playwright/test` и `vitest/globals`, подключённые через `tsconfig`, чтобы получать автодополнение в тестах.
 
-Удачной разработки!
+  Удачной разработки!

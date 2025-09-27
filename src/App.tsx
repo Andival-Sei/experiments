@@ -1,54 +1,69 @@
-import { Helmet } from '@dr.pogodin/react-helmet'
-import { observer } from 'mobx-react-lite'
+import { useEffect } from 'react'
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 
-import viteLogo from '/vite.svg'
+import styles from './App.module.scss'
+import { Header } from './components/Header/Header'
+import { ContactsPage } from './pages/ContactsPage/ContactsPage'
+import { HomePage } from './pages/HomePage/HomePage'
 
-import './App.scss'
-import reactLogo from './assets/react.svg'
-import { useCounterStore } from './stores/root-store-context'
-
-/**
- * Главный компонент приложения с простым счётчиком и ссылками на документацию.
- */
-const App = observer(function App() {
-  // Храним состояние счётчика в MobX-сторе, чтобы оно было доступно всему приложению.
-  const counterStore = useCounterStore()
-
+export function App() {
   return (
-    <>
-      <Helmet prioritizeSeoTags>
-        <title>Vite + React — демо счётчика</title>
-        <meta
-          name="description"
-          content="Пример приложения на React 19 с Vite, демонстрирующий интеграцию счётчика и react-helmet."
-        />
-      </Helmet>
-      <div>
-        <a href="https://vite.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Логотип Vite" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="Логотип React" />
-        </a>
+    <BrowserRouter>
+      <ScrollToHash />
+      <div className={styles.app}>
+        <Header />
+        <main className={styles.main}>
+          <div className={styles.container}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/contacts" element={<ContactsPage />} />
+              <Route path="*" element={<HomePage />} />
+            </Routes>
+          </div>
+        </main>
+        <footer className={styles.footer}>
+          <div className={styles.footerInner}>
+            <span>&copy; {new Date().getFullYear()} Experiments</span>
+            <a href="https://github.com/Andival-Sei/experiments" target="_blank" rel="noreferrer">
+              GitHub репозиторий
+            </a>
+          </div>
+        </footer>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button
-          onClick={() => {
-            counterStore.increment()
-          }}
-        >
-          Значение счётчика: {counterStore.count}
-        </button>
-        <p>
-          Измените файл <code>src/App.tsx</code> и сохраните его, чтобы увидеть горячую перезагрузку
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Нажмите на логотипы Vite и React, чтобы открыть их документацию
-      </p>
-    </>
+    </BrowserRouter>
   )
-})
+}
+
+function ScrollToHash() {
+  const location = useLocation()
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return
+    }
+
+    if (location.hash) {
+      const targetId = location.hash.slice(1)
+
+      const scrollToTarget = () => {
+        const element = document.getElementById(targetId)
+
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+      }
+
+      if (typeof window.requestAnimationFrame === 'function') {
+        window.requestAnimationFrame(scrollToTarget)
+      } else {
+        window.setTimeout(scrollToTarget, 0)
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }, [location])
+
+  return null
+}
 
 export default App

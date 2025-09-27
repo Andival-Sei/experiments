@@ -36,10 +36,10 @@ module.exports = {
         ignoreProperties: ['composes'],
       },
     ],
-  'color-function-notation': 'legacy',
+    'color-function-notation': 'legacy',
     'alpha-value-notation': 'number',
-  'value-keyword-case': null,
-  'rule-empty-line-before': null,
+    'value-keyword-case': null,
+    'rule-empty-line-before': null,
     'no-empty-source': null,
   },
   overrides: [

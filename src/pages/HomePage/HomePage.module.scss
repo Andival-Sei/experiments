@@ -1,0 +1,393 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4rem, 8vw, 6rem);
+
+  width: 100%;
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  padding: clamp(3rem, 6vw, 6rem) clamp(1.5rem, 4vw, 4.5rem) clamp(4rem, 8vw, 7rem);
+}
+
+.section {
+  scroll-margin-top: clamp(4rem, 6vw, 6rem);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16.5rem, 1fr));
+  gap: clamp(2.5rem, 4vw, 4rem);
+  align-items: center;
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.heroEyebrow {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  width: fit-content;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: clamp(2.8rem, 6vw, 4.2rem);
+  line-height: 1.05;
+  color: var(--text-primary);
+}
+
+.heroTitleAccent {
+  color: var(--accent);
+}
+
+.heroSubtitle {
+  max-width: 42rem;
+  margin: 0;
+
+  font-size: clamp(1.05rem, 2.1vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.heroHighlightList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.heroHighlightItem {
+  padding: 0.5rem 1rem;
+  border-radius: 0.85rem;
+
+  font-size: 0.95rem;
+  color: var(--text-primary);
+
+  background: var(--surface-elevated);
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--surface-shadow) 35%, transparent);
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.heroPreview {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.heroCard {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  padding: 1.75rem;
+  border-radius: 1.5rem;
+
+  color: var(--text-primary);
+
+  background: var(--surface-elevated);
+  box-shadow:
+    0 30px 60px color-mix(in srgb, var(--surface-shadow) 35%, transparent),
+    0 4px 14px color-mix(in srgb, var(--surface-shadow) 20%, transparent);
+}
+
+.heroCardSecondary {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 5%, var(--surface-elevated)) 0%,
+    color-mix(in srgb, var(--accent-secondary) 25%, var(--surface-elevated)) 100%
+  );
+}
+
+.heroCardLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.heroCardTitle {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.heroCardDescription {
+  margin: 0;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.button {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.8rem 1.6rem;
+  border: none;
+  border-radius: 999px;
+
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.buttonPrimary {
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+  box-shadow: 0 18px 36px color-mix(in srgb, var(--accent) 30%, transparent);
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-2px);
+  }
+}
+
+.buttonGhost {
+  border: 1px solid color-mix(in srgb, var(--surface-stroke) 60%, transparent);
+  color: var(--text-primary);
+  background: transparent;
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 30px color-mix(in srgb, var(--surface-shadow) 40%, transparent);
+  }
+}
+
+.sectionHeading {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: flex-start;
+  max-width: 48rem;
+}
+
+.sectionHeadingEyebrow {
+  margin: 0;
+
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.sectionHeadingTitle {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+}
+
+.sectionHeadingDescription {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.featuresList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.featuresItem {
+  display: grid;
+  gap: 0.75rem;
+
+  padding: 1.75rem;
+  border-radius: 1.5rem;
+
+  background: var(--surface-elevated);
+  box-shadow: 0 20px 50px color-mix(in srgb, var(--surface-shadow) 35%, transparent);
+}
+
+.featuresItemTitle {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.featuresItemDescription {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.technologyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.technologyItem {
+  display: grid;
+  gap: 0.65rem;
+
+  padding: 2rem;
+  border: 1px solid color-mix(in srgb, var(--surface-stroke) 45%, transparent);
+  border-radius: 1.75rem;
+
+  background: color-mix(in srgb, var(--surface-elevated) 100%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 10%, transparent);
+}
+
+.technologyItemTitle {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.technologyItemDescription {
+  margin: 0;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.pricingCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.pricingCard {
+  display: grid;
+  gap: 1rem;
+
+  padding: 2rem;
+  border-radius: 1.75rem;
+
+  background: var(--surface-elevated);
+  box-shadow: 0 25px 50px color-mix(in srgb, var(--surface-shadow) 40%, transparent);
+}
+
+.pricingCardTitle {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.pricingCardPrice {
+  margin: 0;
+
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.pricingCardDescription {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.pricingCardList {
+  display: grid;
+  gap: 0.4rem;
+
+  margin: 0;
+  padding-left: 1.1rem;
+
+  color: var(--text-secondary);
+}
+
+.faqList {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.faqItem {
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  background: var(--surface-elevated);
+  box-shadow: 0 15px 40px color-mix(in srgb, var(--surface-shadow) 30%, transparent);
+}
+
+.faqItemQuestion {
+  margin: 0 0 0.75rem;
+  font-size: 1.15rem;
+}
+
+.faqItemAnswer {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.contact {
+  margin-top: 1rem;
+  padding: clamp(2.5rem, 4vw, 3.75rem);
+  border-radius: 2rem;
+
+  color: var(--text-primary);
+
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 12%, var(--surface-elevated)) 0%,
+    color-mix(in srgb, var(--accent-secondary) 20%, var(--surface-elevated)) 100%
+  );
+  box-shadow: 0 40px 70px color-mix(in srgb, var(--surface-shadow) 45%, transparent);
+}
+
+.contactInner {
+  display: grid;
+  gap: 1rem;
+  max-width: 38rem;
+}
+
+.contactTitle {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.6rem);
+}
+
+.contactSubtitle {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+@media (width <= 640px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .heroPreview {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionHeading {
+    justify-items: stretch;
+  }
+
+  .contact {
+    text-align: left;
+  }
+}

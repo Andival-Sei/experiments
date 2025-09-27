@@ -1,0 +1,330 @@
+.header {
+  position: sticky;
+  z-index: 100;
+  top: 0;
+
+  width: 100%;
+  border-bottom: 1px solid color-mix(in srgb, var(--surface-stroke) 50%, transparent);
+
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+.inner {
+  position: relative;
+
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  padding: 1rem clamp(1rem, 2vw, 2.5rem);
+}
+
+.brand {
+  display: inline-flex;
+  gap: 0.75rem;
+  align-items: center;
+
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.75rem;
+
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.brandName {
+  letter-spacing: 0.01em;
+}
+
+.themeToggle {
+  cursor: pointer;
+
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  border: none;
+
+  background: transparent;
+}
+
+.themeToggleTrack {
+  position: relative;
+
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 3.6rem;
+  padding: 0.35rem 0.45rem;
+  border: 1px solid color-mix(in srgb, var(--surface-stroke) 55%, transparent);
+  border-radius: 999px;
+
+  background: color-mix(in srgb, var(--surface-elevated) 94%, transparent);
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--surface-shadow) 18%, transparent);
+
+  transition:
+    background 150ms ease,
+    border-color 150ms ease;
+}
+
+.themeToggleIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1.05rem;
+  height: 1.05rem;
+
+  color: var(--text-tertiary);
+
+  opacity: 0.8;
+
+  transition:
+    color 150ms ease,
+    opacity 150ms ease;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.themeToggleThumb {
+  position: absolute;
+  top: 50%;
+  left: 0.35rem;
+  transform: translateY(-50%);
+
+  width: 1.45rem;
+  height: 1.45rem;
+  border-radius: 999px;
+
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+  box-shadow: 0 18px 36px color-mix(in srgb, var(--accent) 30%, transparent);
+
+  transition:
+    left 200ms ease,
+    transform 200ms ease;
+}
+
+.themeToggleThumbActive {
+  left: calc(100% - 0.35rem);
+  transform: translate(-100%, -50%);
+}
+
+.themeToggleTrack[data-mode='light'] .themeToggleIconSun,
+.themeToggleTrack[data-mode='dark'] .themeToggleIconMoon {
+  color: var(--accent);
+  opacity: 1;
+}
+
+.themeToggleTrack[data-mode='dark'] .themeToggleIconSun,
+.themeToggleTrack[data-mode='light'] .themeToggleIconMoon {
+  opacity: 0.55;
+}
+
+.toggle {
+  display: none;
+
+  margin-left: 0.35rem;
+  padding: 0.65rem;
+  border: 1px solid var(--surface-stroke);
+  border-radius: 0.75rem;
+
+  background: var(--surface-elevated);
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--surface-shadow) 10%, transparent);
+}
+
+.toggleLine {
+  display: block;
+
+  width: 1.4rem;
+  height: 2px;
+  margin: 0.2rem 0;
+  border-radius: 12px;
+
+  background: var(--text-primary);
+}
+
+.nav {
+  z-index: 2;
+
+  display: flex;
+  flex: 1 1 auto;
+  gap: 1.75rem;
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    transform 200ms ease,
+    opacity 200ms ease;
+}
+
+.navList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem clamp(1rem, 1.8vw, 2rem);
+  justify-content: center;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.navLink {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+
+  padding: 0.5rem 0;
+
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+
+  transition: color 150ms ease;
+
+  &::after {
+    content: '';
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform-origin: left;
+    transform: scaleX(0);
+
+    width: 100%;
+    height: 2px;
+    border-radius: 999px;
+
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+
+    transition: transform 180ms ease;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--text-primary);
+  }
+}
+
+.navLinkActive {
+  color: var(--text-primary);
+
+  &::after {
+    transform: scaleX(1);
+  }
+}
+
+.navOpen {
+  pointer-events: auto;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@media (width <= 900px) {
+  .inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    column-gap: clamp(0.75rem, 4vw, 1.25rem);
+    align-items: center;
+  }
+
+  .themeToggle {
+    justify-self: center;
+  }
+
+  .toggle {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    justify-self: end;
+
+    margin-left: 0;
+  }
+
+  .nav {
+    pointer-events: none;
+
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: auto;
+    left: 50%;
+    transform: translate(-50%, -10px);
+
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: flex-start;
+
+    width: min(22rem, calc(100% - 2rem));
+    padding: 1.25rem;
+    border-radius: 1rem;
+
+    opacity: 0;
+    background: var(--surface-elevated);
+    box-shadow:
+      0 20px 60px color-mix(in srgb, var(--surface-shadow) 45%, transparent),
+      0 2px 8px color-mix(in srgb, var(--surface-shadow) 35%, transparent);
+  }
+
+  .navList {
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 100%;
+  }
+
+  .navLink {
+    width: 100%;
+    padding: 0.75rem 0;
+    color: var(--text-primary);
+
+    &::after {
+      display: none;
+    }
+  }
+
+  .navOpen {
+    transform: translate(-50%, 0);
+  }
+}
+
+@media (width <= 620px) {
+  .nav {
+    width: min(22rem, calc(100% - clamp(1rem, 6vw, 2.5rem) * 2));
+  }
+}
+
+.srOnly {
+  position: absolute;
+
+  overflow: hidden;
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+
+  clip-path: inset(50%);
+}

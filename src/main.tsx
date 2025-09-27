@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.scss'
 import { RootStoreProvider } from './stores/root-store-provider'
+import { ThemeProvider } from './theme/theme-provider'
 
 /**
  * Находит корневой DOM-узел и монтирует в него React-приложение.
@@ -20,7 +21,9 @@ createRoot(rootElement).render(
   <StrictMode>
     <HelmetProvider>
       <RootStoreProvider>
-        <App />
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
       </RootStoreProvider>
     </HelmetProvider>
   </StrictMode>,

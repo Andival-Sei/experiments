@@ -1,0 +1,59 @@
+name: Deploy with Vercel CLI
+description: Build and deploy the current project to Vercel using a prebuilt output.
+inputs:
+  vercel-token:
+    description: Vercel API token with access to the target project.
+    required: true
+  vercel-org-id:
+    description: Vercel organization (team) identifier.
+    required: true
+  vercel-project-id:
+    description: Vercel project identifier.
+    required: true
+  environment:
+    description: Vercel environment to pull before building.
+    required: false
+    default: production
+runs:
+  using: composite
+  steps:
+    - name: Validate inputs
+      shell: bash
+      run: |
+        if [ -z "${{ inputs.vercel-token }}" ]; then
+          echo "Missing vercel-token input" >&2
+          exit 1
+        fi
+        if [ -z "${{ inputs.vercel-org-id }}" ]; then
+          echo "Missing vercel-org-id input" >&2
+          exit 1
+        fi
+        if [ -z "${{ inputs.vercel-project-id }}" ]; then
+          echo "Missing vercel-project-id input" >&2
+          exit 1
+        fi
+
+    - name: Install dependencies
+      shell: bash
+      run: pnpm install --frozen-lockfile
+
+    - name: Pull Vercel environment
+      shell: bash
+      env:
+        VERCEL_ORG_ID: ${{ inputs.vercel-org-id }}
+        VERCEL_PROJECT_ID: ${{ inputs.vercel-project-id }}
+      run: pnpm dlx vercel@latest pull --yes --environment=${{ inputs.environment }} --token "${{ inputs.vercel-token }}"
+
+    - name: Build with Vercel CLI
+      shell: bash
+      env:
+        VERCEL_ORG_ID: ${{ inputs.vercel-org-id }}
+        VERCEL_PROJECT_ID: ${{ inputs.vercel-project-id }}
+      run: pnpm dlx vercel@latest build --prod --token "${{ inputs.vercel-token }}"
+
+    - name: Deploy to Vercel
+      shell: bash
+      env:
+        VERCEL_ORG_ID: ${{ inputs.vercel-org-id }}
+        VERCEL_PROJECT_ID: ${{ inputs.vercel-project-id }}
+      run: pnpm dlx vercel@latest deploy --prebuilt --prod --token "${{ inputs.vercel-token }}" --yes

@@ -144,6 +144,25 @@ pnpm lint:staged       # Ручной запуск lint-staged (как в pre-co
 - Все задания работают на Node.js 20 и pnpm 9, кэш пакетов настраивается через `actions/setup-node`.
 - Для повторного запуска конкретной проверки воспользуйтесь кнопкой **Re-run jobs** в интерфейсе GitHub Actions.
 
+## Автодеплой на Vercel
+
+- Workflow `Deploy` (`.github/workflows/deploy.yml`) срабатывает автоматически после успешного завершения `CI` при пуше в ветку `main`. Триггер — событие `workflow_run`, поэтому деплой никогда не начнётся, пока не пройдут все проверки.
+- Джоб выполняет тот же набор подготовительных шагов (checkout, Node 20, pnpm 9), после чего запускает локальный `pnpm dlx vercel build` и деплой `pnpm dlx vercel deploy --prebuilt --prod`. Сборка идёт локально в GitHub Actions, поэтому Vercel получает уже готовые артефакты.
+- Повторяется вход в Vercel CLI, для чего понадобятся три секрета в репозитории (Settings → Secrets and variables → Actions → New repository secret):
+  - `VERCEL_TOKEN` — персональный токен, который можно создать командой `vercel login` → `vercel tokens issue <name>`.
+  - `VERCEL_ORG_ID` и `VERCEL_PROJECT_ID` — идентификаторы команды и проекта; вывести их можно через `vercel project ls --json` или `vercel project info <project>`.
+- Если нужно перезапустить деплой вручную, достаточно в интерфейсе GitHub Actions выбрать workflow **Deploy** и нажать **Re-run job** (или выполнить `vercel --prod` локально).
+- Для локальной проверки тех же шагов достаточно выполнить:
+
+  ```bash
+  pnpm install --frozen-lockfile
+  pnpm dlx vercel pull --yes --environment=production
+  pnpm dlx vercel build --prod
+  pnpm dlx vercel deploy --prebuilt --prod --yes
+  ```
+
+  Все команды потребуют, чтобы `VERCEL_TOKEN`, `VERCEL_ORG_ID` и `VERCEL_PROJECT_ID` были доступны в окружении или через `.vercel/project.json`.
+
 ## Dependabot
 
 - Файл конфигурации — `.github/dependabot.yml`. Бот раз в неделю (по понедельникам в 04:00 по Москве) проверяет:

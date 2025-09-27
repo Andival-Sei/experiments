@@ -149,8 +149,23 @@ pnpm lint:staged       # Ручной запуск lint-staged (как в pre-co
 - Workflow `Deploy` (`.github/workflows/deploy.yml`) срабатывает автоматически после успешного завершения `CI` при пуше в ветку `main`. Триггер — событие `workflow_run`, поэтому деплой никогда не начнётся, пока не пройдут все проверки.
 - Джоб выполняет тот же набор подготовительных шагов (checkout, Node 20, pnpm 9), после чего запускает локальный `pnpm dlx vercel build` и деплой `pnpm dlx vercel deploy --prebuilt --prod`. Сборка идёт локально в GitHub Actions, поэтому Vercel получает уже готовые артефакты.
 - Повторяется вход в Vercel CLI, для чего понадобятся три секрета в репозитории (Settings → Secrets and variables → Actions → New repository secret):
-  - `VERCEL_TOKEN` — персональный токен, который можно создать командой `vercel login` → `vercel tokens issue <name>`.
+  - `VERCEL_TOKEN` — персональный токен, который можно создать в разделе [vercel.com/account/tokens](https://vercel.com/account/tokens) (для командного проекта откройте Settings → Tokens).
   - `VERCEL_ORG_ID` и `VERCEL_PROJECT_ID` — идентификаторы команды и проекта; вывести их можно через `vercel project ls --json` или `vercel project info <project>`.
+- Чтобы Vercel не запускал production-деплой параллельно с GitHub Actions, в корне лежит `vercel.json` с разделом
+
+  ```json
+  {
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "git": {
+      "deploymentEnabled": {
+        "main": false
+      }
+    }
+  }
+  ```
+
+  Это отключает автоматические сборки для ветки `main`, поэтому прод обновляет только workflow `Deploy`, но при этом оставляет превью-деплои для остальных веток.
+
 - Если нужно перезапустить деплой вручную, достаточно в интерфейсе GitHub Actions выбрать workflow **Deploy** и нажать **Re-run job** (или выполнить `vercel --prod` локально).
 - Для локальной проверки тех же шагов достаточно выполнить:
 

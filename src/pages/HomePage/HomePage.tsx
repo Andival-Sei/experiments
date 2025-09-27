@@ -4,73 +4,76 @@ import styles from './HomePage.module.scss'
 import { cn } from '../../lib/cn'
 
 const heroHighlights = [
-  'React 19 + Vite + TypeScript',
-  'Живые сторы на MobX',
-  'Готово к деплою на Vercel',
+  'React 19 + TypeScript + Vite',
+  'MobX для управления состоянием',
+  'Sass + CSS Modules для стилей',
+  'Playwright + Vitest для тестирования',
 ]
 
-const features = [
+const frontendTech = [
   {
-    title: 'Модульная архитектура',
+    title: 'React 19',
     description:
-      'Чёткое разделение на сторы, UI-компоненты и сервисы сокращает время на поддержку и развитие.',
+      'Самая актуальная версия React с поддержкой новых возможностей и улучшенной производительности.',
+    features: ['Server Components', 'Concurrent Features', 'Новые хуки'],
   },
   {
-    title: 'Гибкие стили',
-    description:
-      'SCSS с дизайн-токенами позволяет быстро подстраивать тему и собирать адаптивные интерфейсы.',
+    title: 'TypeScript',
+    description: 'Строгая типизация для предотвращения ошибок и улучшения разработки в команде.',
+    features: ['Type Safety', 'IntelliSense', 'Рефакторинг'],
   },
   {
-    title: 'Проактивные тесты',
-    description:
-      'Vitest, Testing Library и Playwright обеспечивают контроль качества на всех уровнях.',
-  },
-]
-
-const techStack = [
-  {
-    title: 'React 19 + Vite',
-    description:
-      'Самая свежая связка для клиентских приложений: быстрые сборки, современный DX и поддержка React Server Components.',
-  },
-  {
-    title: 'MobX State Tree',
-    description:
-      'Прозрачное управление состоянием с реактивностью и минималистичным API, готовое к масштабированию.',
-  },
-  {
-    title: 'Playwright + Vitest',
-    description:
-      'Юнит- и e2e-тесты из коробки, чтобы любая новая функция попадала в прод с уверенностью.',
+    title: 'Vite',
+    description: 'Быстрый и современный инструмент сборки с горячей перезагрузкой и оптимизацией.',
+    features: ['HMR', 'Tree Shaking', 'Code Splitting'],
   },
 ]
 
-const pricing = [
+const stateManagement = [
   {
-    title: 'Команда',
-    price: 'Индивидуально',
-    description: 'Настраиваем процесс под ваши задачи, подключаем CI/CD и автоматизируем проверки.',
-    benefits: ['Общий дизайн-сет', 'CI-пайплайн', 'Покрытие тестами'],
-  },
-  {
-    title: 'Стартап',
-    price: 'Быстрый запуск',
-    description:
-      'Помогаем выкатить MVP за недели: адаптивный UI, базовые сценарии и рост вместе с продуктом.',
-    benefits: ['Интерактивный прототип', 'Стартовая аналитика', 'Консультации по архитектуре'],
+    title: 'MobX',
+    description: 'Простое и мощное управление состоянием через реактивное программирование.',
+    features: ['Автоматические обновления', 'Минимум кода', 'Отличная производительность'],
   },
 ]
 
-const faqs = [
+const styling = [
   {
-    question: 'Можно подключить вашу заготовку к существующему бекенду?',
-    answer:
-      'Да. В проект уже добавлены механизмы изоляции API-клиентов и MobX-сторы, поэтому интеграция проходит безболезненно.',
+    title: 'Sass + CSS Modules',
+    description: 'Мощный препроцессор CSS с модульной изоляцией стилей для каждого компонента.',
+    features: ['Переменные', 'Миксины', 'Изоляция стилей'],
+  },
+]
+
+const testing = [
+  {
+    title: 'Vitest',
+    description:
+      'Быстрый юнит-тестинг с нативной поддержкой TypeScript и современных возможностей.',
+    features: ['Быстрая сборка', 'Watch mode', 'Coverage отчеты'],
   },
   {
-    question: 'Как быстро можно запустить проект в прод?',
-    answer:
-      'Следуя гайду в README, деплой на Vercel занимает пару минут. Дальше вы настраиваете кастомный домен и мониторинг.',
+    title: 'Testing Library',
+    description: 'Тестирование компонентов с фокусом на пользовательский опыт и доступность.',
+    features: ['User-centric тесты', 'Accessibility checks', 'Простой API'],
+  },
+  {
+    title: 'Playwright',
+    description: 'E2E тестирование для проверки полных пользовательских сценариев в браузере.',
+    features: ['Кроссбраузерность', 'Auto-waiting', 'Визуальные тесты'],
+  },
+]
+
+const development = [
+  {
+    title: 'ESLint + Prettier',
+    description: 'Автоматическое форматирование и проверка качества кода для консистентного стиля.',
+    features: ['Код-стайл', 'Автофикс', 'Интеграция с IDE'],
+  },
+  {
+    title: 'Husky + Lint-staged',
+    description: 'Git хуки для автоматической проверки кода перед коммитом и пушем.',
+    features: ['Pre-commit хуки', 'Качество кода', 'Автоматизация'],
   },
 ]
 
@@ -78,24 +81,24 @@ export function HomePage() {
   return (
     <>
       <Helmet prioritizeSeoTags>
-        <title>Experiments — современный фронтенд-старт</title>
+        <title>Experiments — современный фронтенд-стек</title>
         <meta
           name="description"
-          content="Готовая основа на React 19 и Vite для быстрого запуска интерфейсов с тестами и MobX."
+          content="Передовой технологический стек: React 19, TypeScript, Vite, MobX, Sass, Vitest, Playwright. Готов к продакшену."
         />
       </Helmet>
 
       <div className={styles.page}>
         <section className={cn(styles.section, styles.hero)} id="hero">
           <div className={styles.heroContent}>
-            <div className={styles.heroEyebrow}>Фронтенд-стартер • 2025</div>
+            <div className={styles.heroEyebrow}>Современный фронтенд-стек • 2025</div>
             <h1 className={styles.heroTitle}>
-              Стартуйте продукт быстро,
-              <span className={styles.heroTitleAccent}> не жертвуя качеством</span>
+              Проект на передовых технологиях,
+              <span className={styles.heroTitleAccent}> готовый к продакшену</span>
             </h1>
             <p className={styles.heroSubtitle}>
-              Мы собрали архитектуру, стили и инфраструктуру так, чтобы вы могли фокусироваться на
-              логике, а не на настройке.
+              Собрали лучшие инструменты в единый стек для быстрой разработки качественных
+              веб-приложений с полным покрытием тестами и современным DevX.
             </p>
             <ul className={styles.heroHighlightList}>
               {heroHighlights.map((item) => (
@@ -105,113 +108,154 @@ export function HomePage() {
               ))}
             </ul>
             <div className={styles.heroActions}>
-              <a className={cn(styles.button, styles.buttonPrimary)} href="#pricing">
-                Узнать условия
+              <a className={cn(styles.button, styles.buttonPrimary)} href="#frontend">
+                Изучить стек
               </a>
-              <a className={cn(styles.button, styles.buttonGhost)} href="#technology">
-                Посмотреть стек
+              <a className={cn(styles.button, styles.buttonGhost)} href="#testing">
+                Тестирование
               </a>
             </div>
           </div>
           <div className={styles.heroPreview}>
             <div className={styles.heroCard}>
-              <span className={styles.heroCardLabel}>CI/CD</span>
-              <h2 className={styles.heroCardTitle}>Каждый pull request проходит тесты</h2>
+              <span className={styles.heroCardLabel}>TypeScript</span>
+              <h2 className={styles.heroCardTitle}>Типобезопасность на всех уровнях</h2>
               <p className={styles.heroCardDescription}>
-                Vitest, Playwright и линтеры уже готовы. Просто добавьте свой код, и пайплайн
-                проверит его к продакшену.
+                Строгая типизация предотвращает ошибки еще на этапе разработки и обеспечивает
+                отличную поддержку в IDE с автодополнением и рефакторингом.
               </p>
             </div>
             <div className={cn(styles.heroCard, styles.heroCardSecondary)}>
-              <span className={styles.heroCardLabel}>Design Tokens</span>
-              <h2 className={styles.heroCardTitle}>Единый визуальный язык</h2>
+              <span className={styles.heroCardLabel}>Автоматизация</span>
+              <h2 className={styles.heroCardTitle}>Качество кода из коробки</h2>
               <p className={styles.heroCardDescription}>
-                Цвета, сетка и типографика задаются переменными, чтобы вы могли мгновенно
-                адаптировать тему.
+                ESLint, Prettier, Husky и pre-commit хуки автоматически поддерживают консистентный
+                стиль кода и проверяют качество при каждом коммите.
               </p>
             </div>
           </div>
         </section>
 
-        <section className={styles.section} id="features">
+        <section className={styles.section} id="frontend">
           <header className={styles.sectionHeading}>
-            <p className={styles.sectionHeadingEyebrow}>Почему это работает</p>
-            <h2 className={styles.sectionHeadingTitle}>В основе — зрелая архитектура</h2>
+            <p className={styles.sectionHeadingEyebrow}>Фронтенд технологии</p>
+            <h2 className={styles.sectionHeadingTitle}>React 19 + TypeScript + Vite</h2>
             <p className={styles.sectionHeadingDescription}>
-              Комбинируем лучшие практики React-сообщества и опыт производства, чтобы ускорить ваш
-              релиз.
+              Передовая связка технологий для создания быстрых, типобезопасных и масштабируемых
+              веб-приложений с отличным опытом разработки.
             </p>
           </header>
 
           <div className={styles.featuresList}>
-            {features.map((feature) => (
-              <article key={feature.title} className={styles.featuresItem}>
-                <h3 className={styles.featuresItemTitle}>{feature.title}</h3>
-                <p className={styles.featuresItemDescription}>{feature.description}</p>
+            {frontendTech.map((tech) => (
+              <article key={tech.title} className={styles.featuresItem}>
+                <h3 className={styles.featuresItemTitle}>{tech.title}</h3>
+                <p className={styles.featuresItemDescription}>{tech.description}</p>
+                <ul style={{ marginTop: '8px', fontSize: '0.875rem', opacity: 0.8 }}>
+                  {tech.features.map((feature) => (
+                    <li key={feature}>• {feature}</li>
+                  ))}
+                </ul>
               </article>
             ))}
           </div>
         </section>
 
-        <section className={styles.section} id="technology">
+        <section className={styles.section} id="state">
           <header className={styles.sectionHeading}>
-            <p className={styles.sectionHeadingEyebrow}>Технологии</p>
-            <h2 className={styles.sectionHeadingTitle}>Стек, проверенный проектами</h2>
+            <p className={styles.sectionHeadingEyebrow}>Управление состоянием</p>
+            <h2 className={styles.sectionHeadingTitle}>MobX для реактивного состояния</h2>
             <p className={styles.sectionHeadingDescription}>
-              Делаем ставку на инструменты, которые обеспечивают скорость, стабильность и
-              масштабируемость.
+              Простая и мощная библиотека для управления состоянием с автоматическими обновлениями и
+              минимальным количеством кода.
             </p>
           </header>
 
           <div className={styles.technologyGrid}>
-            {techStack.map((item) => (
+            {stateManagement.map((item) => (
               <article key={item.title} className={styles.technologyItem}>
                 <h3 className={styles.technologyItemTitle}>{item.title}</h3>
                 <p className={styles.technologyItemDescription}>{item.description}</p>
+                <ul style={{ marginTop: '12px', fontSize: '0.875rem', opacity: 0.8 }}>
+                  {item.features.map((feature) => (
+                    <li key={feature}>• {feature}</li>
+                  ))}
+                </ul>
               </article>
             ))}
           </div>
         </section>
 
-        <section className={styles.section} id="pricing">
+        <section className={styles.section} id="styling">
           <header className={styles.sectionHeading}>
-            <p className={styles.sectionHeadingEyebrow}>Форматы работы</p>
-            <h2 className={styles.sectionHeadingTitle}>Выбирайте комфортный темп сотрудничества</h2>
+            <p className={styles.sectionHeadingEyebrow}>Стилизация</p>
+            <h2 className={styles.sectionHeadingTitle}>Sass + CSS Modules</h2>
             <p className={styles.sectionHeadingDescription}>
-              Мы адаптируем процесс под задачи вашей команды и сопровождаем запуск спринтов.
+              Мощный препроцессор CSS с модульной архитектурой для изолированных и переиспользуемых
+              стилей компонентов.
             </p>
           </header>
 
           <div className={styles.pricingCards}>
-            {pricing.map((plan) => (
-              <article key={plan.title} className={styles.pricingCard}>
-                <h3 className={styles.pricingCardTitle}>{plan.title}</h3>
-                <p className={styles.pricingCardPrice}>{plan.price}</p>
-                <p className={styles.pricingCardDescription}>{plan.description}</p>
+            {styling.map((style) => (
+              <article key={style.title} className={styles.pricingCard}>
+                <h3 className={styles.pricingCardTitle}>{style.title}</h3>
+                <p className={styles.pricingCardDescription}>{style.description}</p>
                 <ul className={styles.pricingCardList}>
-                  {plan.benefits.map((benefit) => (
-                    <li key={benefit}>{benefit}</li>
+                  {style.features.map((feature) => (
+                    <li key={feature}>{feature}</li>
                   ))}
                 </ul>
-                <a className={cn(styles.button, styles.buttonPrimary)} href="#contact">
-                  Запросить консультацию
-                </a>
               </article>
             ))}
           </div>
         </section>
 
-        <section className={cn(styles.section, styles.faq)} id="faq">
+        <section className={cn(styles.section, styles.faq)} id="testing">
           <header className={styles.sectionHeading}>
-            <p className={styles.sectionHeadingEyebrow}>FAQ</p>
-            <h2 className={styles.sectionHeadingTitle}>Ответы на частые вопросы</h2>
+            <p className={styles.sectionHeadingEyebrow}>Тестирование</p>
+            <h2 className={styles.sectionHeadingTitle}>Полное покрытие тестами</h2>
+            <p className={styles.sectionHeadingDescription}>
+              Комплексное тестирование на всех уровнях: от юнитов до полных пользовательских
+              сценариев в браузере.
+            </p>
           </header>
 
           <div className={styles.faqList}>
-            {faqs.map((faq) => (
-              <article key={faq.question} className={styles.faqItem}>
-                <h3 className={styles.faqItemQuestion}>{faq.question}</h3>
-                <p className={styles.faqItemAnswer}>{faq.answer}</p>
+            {testing.map((test) => (
+              <article key={test.title} className={styles.faqItem}>
+                <h3 className={styles.faqItemQuestion}>{test.title}</h3>
+                <p className={styles.faqItemAnswer}>{test.description}</p>
+                <ul style={{ marginTop: '8px', fontSize: '0.875rem', opacity: 0.8 }}>
+                  {test.features.map((feature) => (
+                    <li key={feature}>• {feature}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className={styles.section} id="development">
+          <header className={styles.sectionHeading}>
+            <p className={styles.sectionHeadingEyebrow}>Инструменты разработки</p>
+            <h2 className={styles.sectionHeadingTitle}>Автоматизация и качество кода</h2>
+            <p className={styles.sectionHeadingDescription}>
+              Настроенные инструменты для поддержания качества кода и автоматизации рутинных
+              процессов разработки.
+            </p>
+          </header>
+
+          <div className={styles.technologyGrid}>
+            {development.map((tool) => (
+              <article key={tool.title} className={styles.technologyItem}>
+                <h3 className={styles.technologyItemTitle}>{tool.title}</h3>
+                <p className={styles.technologyItemDescription}>{tool.description}</p>
+                <ul style={{ marginTop: '12px', fontSize: '0.875rem', opacity: 0.8 }}>
+                  {tool.features.map((feature) => (
+                    <li key={feature}>• {feature}</li>
+                  ))}
+                </ul>
               </article>
             ))}
           </div>
@@ -219,13 +263,13 @@ export function HomePage() {
 
         <section className={cn(styles.section, styles.contact)} id="contact">
           <div className={styles.contactInner}>
-            <h2 className={styles.contactTitle}>Готовы обсудить ваш продукт?</h2>
+            <h2 className={styles.contactTitle}>Готовы начать разработку?</h2>
             <p className={styles.contactSubtitle}>
-              Расскажите о задачах, и мы соберём план внедрения: от быстрых экспериментов до
-              промышленного запуска.
+              Клонируйте репозиторий и запустите проект за несколько минут. Все инструменты уже
+              настроены и готовы к работе.
             </p>
-            <a className={cn(styles.button, styles.buttonPrimary)} href="mailto:hello@example.com">
-              hello@example.com
+            <a className={cn(styles.button, styles.buttonPrimary)} href="/contacts">
+              Связаться с нами
             </a>
           </div>
         </section>

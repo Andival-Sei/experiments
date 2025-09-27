@@ -5,9 +5,9 @@ test.describe('Приложение', () => {
     await page.goto('/')
   })
   test('отображает главную страницу и навигацию', async ({ page }) => {
-    await expect(page).toHaveTitle('Experiments — современный фронтенд-старт')
+    await expect(page).toHaveTitle('Experiments — современный фронтенд-стек')
     await expect(
-      page.getByRole('heading', { level: 1, name: /стартуйте продукт быстро/i }),
+      page.getByRole('heading', { level: 1, name: /проект на передовых технологиях/i }),
     ).toBeVisible()
 
     const navigation = page.getByRole('navigation', { name: /навигация по страницам/i })
@@ -23,15 +23,15 @@ test.describe('Приложение', () => {
     await page.getByRole('link', { name: 'Контакты' }).click()
 
     await expect(page).toHaveURL(/\/contacts$/)
-    await expect(page).toHaveTitle('Связаться с Experiments')
+    await expect(page).toHaveTitle('Связаться с командой Experiments')
     await expect(
-      page.getByRole('heading', { level: 1, name: /всегда открыты к разговору о продукте/i }),
+      page.getByRole('heading', { level: 1, name: /связаться с командой experiments/i }),
     ).toBeVisible()
 
     await page.getByRole('link', { name: 'Главная' }).click()
 
     await expect(page).toHaveURL(/\/$/)
-    await expect(page).toHaveTitle('Experiments — современный фронтенд-старт')
+    await expect(page).toHaveTitle('Experiments — современный фронтенд-стек')
   })
 
   test('сохраняет выбранную тему после перезагрузки', async ({ page }) => {
@@ -75,5 +75,42 @@ test.describe('Мобильный хедер', () => {
     if (shouldCapture) {
       await page.screenshot({ path: 'test-results/mobile-menu.png', fullPage: false })
     }
+  })
+})
+
+test.describe('Страница контактов', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/contacts')
+  })
+
+  test('отображает все каналы связи', async ({ page }) => {
+    await expect(page.getByRole('heading', { level: 3, name: 'Email' })).toBeVisible()
+    await expect(page.getByRole('heading', { level: 3, name: 'Telegram' })).toBeVisible()
+    await expect(page.getByRole('heading', { level: 3, name: 'VK' })).toBeVisible()
+    await expect(page.getByRole('heading', { level: 3, name: 'Discord' })).toBeVisible()
+  })
+
+  test('проверяет ссылки на социальные сети', async ({ page }) => {
+    const emailLink = page.getByRole('link', { name: 'Написать письмо' })
+    await expect(emailLink).toHaveAttribute('href', 'mailto:contact@experiments.dev')
+
+    const telegramLink = page.getByRole('link', { name: 'Открыть чат' })
+    await expect(telegramLink).toHaveAttribute('href', 'https://t.me/experiments_dev')
+
+    const vkLink = page.getByRole('link', { name: 'Перейти в VK' })
+    await expect(vkLink).toHaveAttribute('href', 'https://vk.com/experiments_dev')
+
+    const discordLink = page.getByRole('link', { name: 'Присоединиться' })
+    await expect(discordLink).toHaveAttribute('href', 'https://discord.gg/experiments-dev')
+  })
+
+  test('форма обратной связи работает', async ({ page }) => {
+    await page.fill('input[name="name"]', 'Тестовый пользователь')
+    await page.fill('input[name="email"]', 'test@example.com')
+    await page.fill('textarea[name="message"]', 'Тестовое сообщение')
+
+    await page.click('button[type="submit"]')
+
+    await expect(page.getByText('Спасибо за вопрос! Мы ответим в ближайшее время.')).toBeVisible()
   })
 })

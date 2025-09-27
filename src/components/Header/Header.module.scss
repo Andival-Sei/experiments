@@ -175,8 +175,7 @@
 
   transition:
     transform 200ms ease,
-    opacity 200ms ease,
-    visibility 200ms ease;
+    opacity 200ms ease;
 }
 
 .navList {
@@ -240,7 +239,6 @@
 .navOpen {
   pointer-events: auto;
   transform: translateY(0);
-  visibility: visible;
   opacity: 1;
 }
 
@@ -284,7 +282,6 @@
     padding: 1.25rem;
     border-radius: 1rem;
 
-    visibility: hidden;
     opacity: 0;
     background: var(--surface-elevated);
     box-shadow:
@@ -311,7 +308,6 @@
   .navOpen {
     pointer-events: auto;
     transform: translate(-50%, 0);
-    visibility: visible;
     opacity: 1;
   }
 }
